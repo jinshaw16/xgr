@@ -94,7 +94,31 @@ xSNP2nGenes <- function(data, distance.max=200000, decay.kernel=c("rapid","slow"
 	minoverlap <- 0L
 	subject <- gr_Gene
 	query <- gr_SNP
-	q2r <- as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query=query, subject=subject, maxgap=maxgap, minoverlap=minoverlap, type="any", select="all", ignore.strand=T))))
+	s1<-subject[c(1:5000),]
+	s2<-subject[c(5001:10000),]
+	s3<-subject[c(10001:15000),]
+	s4<-subject[c(15001:20000),]
+	s5<-subject[c(20001:nrow(as.data.frame(subject))),]
+
+	one<-as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query = query,
+	        subject = s1, maxgap = maxgap, minoverlap = minoverlap,
+	        type = "any", select = "all", ignore.strand = T))))
+	two<-as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query = query,
+	        subject = s2, maxgap = maxgap, minoverlap = minoverlap,
+	        type = "any", select = "all", ignore.strand = T))))
+	three<-as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query = query,
+	        subject = s3, maxgap = maxgap, minoverlap = minoverlap,
+	        type = "any", select = "all", ignore.strand = T))))
+	four<-as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query = query,
+	        subject = s4, maxgap = maxgap, minoverlap = minoverlap,
+	        type = "any", select = "all", ignore.strand = T))))
+	five<-as.matrix(as.data.frame(suppressWarnings(GenomicRanges::findOverlaps(query = query,
+	        subject = s5, maxgap = maxgap, minoverlap = minoverlap,
+	        type = "any", select = "all", ignore.strand = T))))
+	q2r<-rbind(one,two)
+	q2r<-rbind(q2r,three)
+	q2r<-rbind(q2r,four)
+	q2r<-rbind(q2r,five)
 	
 	if(length(q2r) > 0){
 	
